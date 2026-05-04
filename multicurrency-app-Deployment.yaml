@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multicurrency-ars  
+  labels: 
+    app: multicurrency-ars
+    version: v1 
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multicurrency-ars-tue
+      version: v1  
+  template:
+    metadata:
+      labels:
+        app: multicurrency-ars-tue
+        version: v1
+    spec:
+      containers:
+      - name: multicurrency-ars-tue
+        image: hashicorp/http-echo:1.0.0
+        imagePullPolicy: IfNotPresent
+        args:
+        - -listen=:8080
+        - -text="respond from AUD" 
